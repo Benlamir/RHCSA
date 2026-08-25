@@ -25,3 +25,14 @@ the name of the user.
     ,,,
     for i in joanna john laura beatrix; do passwd -x 90 $i; done
     ,,,
+
+### Lab 6.2
+
+Create a **sudo** configuration that 
+allows user bill to manage user properties and passwords but that does 
+not allow this user to change the password for the root user.
+    ,,,
+    sudo sh -c 'echo "bill ALL=/usr/bin/passwd, /usr/bin/usermod, /usr/bin/useradd, ! /usr/bin/passwd root" > /etc/sudoers.d/bill'
+    ,,,
+    ,,,
+    sudo visudo -c ( check the syntaxe should give a parsed ok with chmod 0440 for the sudoers)
