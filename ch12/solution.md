@@ -24,3 +24,7 @@
 
         [Install]
         WantedBy=timer.target
+        ,,,
+    systemctl daemon.reload
+    systemctl enable --now vsftpd.timer
+    systemctl list-timers | grep vsftpd
