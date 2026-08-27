@@ -18,5 +18,9 @@
         [Unit]
         Description=Starts the vsftpd 5min after boot
 
-        [Service]
+        [Timer]
+        OnBootSec=5min
+        Unit=vsftpd.service
 
+        [Install]
+        WantedBy=timer.target
