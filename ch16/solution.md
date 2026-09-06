@@ -50,26 +50,29 @@ network card. Find out whether it has options. Try loading one of these
 kernel module options manually; if that succeeds, take the required
 measures to load this option persistently.
     ,,,
-    root@server2:~# ip link show 
-1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT group default qlen 1000
-    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    root@server2:# ip link show 
 2: enp1s0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP mode DEFAULT group default qlen 1000
     link/ether 52:54:00:3d:bf:12 brd ff:ff:ff:ff:ff:ff
     altname enx5254003dbf12
-root@server2:~# eth
-ether-wake  ethtool     
 root@server2:# ethtool -i enp1s0
 driver: virtio_net
-version: 1.0.0
-firmware-version: 
-expansion-rom-version: 
-bus-info: 0000:01:00.0
-supports-statistics: yes
-supports-test: no
-supports-eeprom-access: no
-supports-register-dump: no
-supports-priv-flags: no
 root@server2:# lsmod | grep virtio_net
 virtio_net            126976  0
 net_failover           24576  1 virtio_net
+
+find out whether it has options:
+modinfo virtio_net
+
+Try loading one of these kernel module options manually:
+modprobe -r virtio_net (first unload the modul)
+modprobe virtio_net csum=1 (load the module with parameter csum=1)
+find csum parameter usinf find command and check the parameter turned Y
+
+take the required measures to load this option persistently:
+vim /etc/modprobe.d/virtio_net.conf
+options virtio_net csum=1
+:wq
+
+
+
 
